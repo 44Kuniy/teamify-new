@@ -11,8 +11,6 @@ import {
   Toolbar,
 } from "@mui/material";
 
-const DRAWER_WIDTH = 170;
-
 interface SidebarContent {
   icon: JSX.Element;
   text: string;
@@ -31,7 +29,11 @@ const sidebarContents: SidebarContent[] = [
   },
 ];
 
-export const BasicSidebar = () => {
+interface BasicSidebarProps {
+  width: number;
+}
+
+export const BasicSidebar = ({ width }: BasicSidebarProps) => {
   return (
     <Drawer
       anchor={"left"}
@@ -41,7 +43,7 @@ export const BasicSidebar = () => {
         keepMounted: true,
       }}
       sx={{
-        width: DRAWER_WIDTH,
+        width,
         flexShrink: 0,
       }}
     >

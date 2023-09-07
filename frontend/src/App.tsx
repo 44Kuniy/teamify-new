@@ -72,7 +72,6 @@ const list = () => (
   </Box>
 );
 
-const pr = {};
 const routes: RouteObject[] = [
   {
     path: "/",

@@ -8,15 +8,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import zIndex from "@mui/material/styles/zIndex";
 import { Home } from "@mui/icons-material";
 
-const APP_BAR_HEIGHT = 64;
-
-export default function BasicAppbar() {
+interface AppbarPrps {
+  height: number;
+}
+export default function BasicAppbar({ height }: AppbarPrps) {
   return (
     <AppBar
       position="fixed"
       sx={{
-        height: APP_BAR_HEIGHT,
-        mb: APP_BAR_HEIGHT,
+        height: `${height}px`,
         zIndex: 1500,
         boxShadow: 0,
       }}

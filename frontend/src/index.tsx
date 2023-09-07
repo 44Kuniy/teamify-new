@@ -1,7 +1,5 @@
 import { App } from "./App";
 
-import { StrictMode } from "react";
-
 import { createRoot } from "react-dom/client";
 
 import React from "react";
@@ -18,13 +16,15 @@ const container = document.getElementById("root") as Element;
 
 const root = createRoot(container);
 root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <CssBaseline>
-        <ApolloProvider client={client}>
-          <App />
-        </ApolloProvider>
-      </CssBaseline>
-    </BrowserRouter>
-  </StrictMode>
+  // react-beautiful-dnd does not work on StrictMode
+  // https://github.com/atlassian/react-beautiful-dnd/issues/2407
+  // <StrictMode>
+  <BrowserRouter>
+    <CssBaseline>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </CssBaseline>
+  </BrowserRouter>
+  // </StrictMode>
 );
