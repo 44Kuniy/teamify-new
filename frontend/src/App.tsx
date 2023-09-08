@@ -1,4 +1,7 @@
-import { Mail, Menu, MoveToInbox } from "@mui/icons-material";
+import React, { FC, useState } from 'react'
+
+import { useQuery, gql } from '@apollo/client'
+import { Mail, Menu, MoveToInbox } from '@mui/icons-material'
 import {
   AppBar,
   Box,
@@ -13,18 +16,17 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-} from "@mui/material";
-import React, { FC, useState } from "react";
-import { Navigate, Outlet, RouteObject, useRoutes } from "react-router-dom";
-import { useQuery, gql } from "@apollo/client";
-import { TestPage } from "./pages/TestPage";
-import { BaseLayout } from "./components/layout/BasicLayout";
+} from '@mui/material'
+import { RouteObject, useRoutes } from 'react-router-dom'
+
+import { BaseLayout } from './components/layout/BasicLayout'
+import { TestPage } from './pages/TestPage'
 
 const TEST = gql`
   query Test {
     howdy
   }
-`;
+`
 
 const GET_CHANNELS = gql`
   query Channels {
@@ -32,25 +34,23 @@ const GET_CHANNELS = gql`
       id
     }
   }
-`;
+`
 
 export const App: FC = () => {
-  const content = useRoutes(routes);
-  const { loading, error, data } = useQuery(GET_CHANNELS);
-  console.log("loading, error, data ❓: {:#?}", loading, error, data);
+  const content = useRoutes(routes)
+  const { loading, error, data } = useQuery(GET_CHANNELS)
+  console.log('loading, error, data ❓: {:#?}', loading, error, data)
 
-  return <React.Fragment>{content}</React.Fragment>;
-};
+  return <React.Fragment>{content}</React.Fragment>
+}
 
 const list = () => (
   <Box sx={{ width: 250 }} role="presentation">
     <List>
-      {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+      {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
         <ListItem key={text} disablePadding>
           <ListItemButton>
-            <ListItemIcon>
-              {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
-            </ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItemButton>
         </ListItem>
@@ -58,27 +58,25 @@ const list = () => (
     </List>
     <Divider />
     <List>
-      {["All mail", "Trash", "Spam"].map((text, index) => (
+      {['All mail', 'Trash', 'Spam'].map((text, index) => (
         <ListItem key={text} disablePadding>
           <ListItemButton>
-            <ListItemIcon>
-              {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
-            </ListItemIcon>
+            <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItemButton>
         </ListItem>
       ))}
     </List>
   </Box>
-);
+)
 
 const routes: RouteObject[] = [
   {
-    path: "/",
+    path: '/',
     element: <div>aa</div>,
   },
   {
-    path: "/test",
+    path: '/test',
     element: <BaseLayout />,
     children: [
       {
@@ -86,13 +84,13 @@ const routes: RouteObject[] = [
         element: <div></div>,
       },
       {
-        path: "2",
+        path: '2',
         element: <div>taaaa</div>,
       },
     ],
   },
   {
-    path: "/test2",
+    path: '/test2',
     element: <BaseLayout />,
     children: [
       {
@@ -100,21 +98,21 @@ const routes: RouteObject[] = [
         element: <TestPage />,
       },
       {
-        path: "2",
+        path: '2',
         element: <div>taaaa</div>,
       },
     ],
   },
-];
+]
 
 export default function TestAppBar() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            color={"inherit"}
+            color={'inherit'}
             edge="start"
             sx={{ mr: 2 }}
             onClick={() => setIsDrawerOpen(true)}
@@ -122,11 +120,7 @@ export default function TestAppBar() {
             <Menu />
           </IconButton>
           {/* TODO: shrink Drawer or Drawer */}
-          <Drawer
-            anchor={"left"}
-            open={isDrawerOpen}
-            onClose={() => setIsDrawerOpen(false)}
-          >
+          <Drawer anchor={'left'} open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
             {list()}
           </Drawer>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -136,5 +130,5 @@ export default function TestAppBar() {
         </Toolbar>
       </AppBar>
     </Box>
-  );
+  )
 }

@@ -28,7 +28,10 @@
     "start": "PORT=4000 react-app-rewired start",
     "start:win": "set PORT=4000 && react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test"
+    "test": "react-app-rewired test",
+    "lint": "eslint --fix ./src/** --ext .js,.ts,.tsx;",
+    "prettier": "prettier ./src/** --write",
+    "format": "eslint --fix ./src/** --ext .js,.ts,.tsx && prettier ./src/** --write"
   },
   "eslintConfig": {
     "extends": [
@@ -48,7 +51,20 @@
       "last 1 safari version"
     ]
   },
+  "prettier": {
+    "printWidth": 100,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
   "devDependencies": {
+    "eslint": "^8.20.0",
+    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "2.5.1",
+    "prettier-eslint": "^13.0.0",
     "react-app-rewired": "^2.2.1"
   }
 }

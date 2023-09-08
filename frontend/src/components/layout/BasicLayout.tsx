@@ -1,19 +1,20 @@
-import { Outlet } from "react-router-dom";
-import { BasicSidebar } from "../common/SideBar";
-import BasicAppbar from "../common/AppBar";
-import { Box } from "@mui/material";
+import { Box } from '@mui/material'
+import { Outlet } from 'react-router-dom'
 
-const APP_BAR_HEIGHT = 64;
-const DRAWER_WIDTH = 170;
+import BasicAppbar from '../common/AppBar'
+import { BasicSidebar } from '../common/SideBar'
+
+const APP_BAR_HEIGHT = 64
+const DRAWER_WIDTH = 170
 
 export const BaseLayout = () => {
   return (
     <Box
       sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <Box>
@@ -26,5 +27,5 @@ export const BaseLayout = () => {
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}

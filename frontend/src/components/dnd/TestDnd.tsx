@@ -1,21 +1,20 @@
-import { Box, Card, CardContent } from "@mui/material";
-import { Draggable } from "react-beautiful-dnd";
+import { Card, CardContent } from '@mui/material'
 
 interface TestDndProps {
-  user: User;
+  user: User
 }
 
 export const TestDnd = ({ user }: TestDndProps) => {
-  return <PersonalCard user={user}></PersonalCard>;
-};
+  return <PersonalCard user={user}></PersonalCard>
+}
 
 interface User {
-  id: string;
-  name: string;
+  id: string
+  name: string
 }
 
 interface PersonalCardProps {
-  user: User;
+  user: User
 }
 
 const PersonalCard = ({ user }: PersonalCardProps) => {
@@ -23,5 +22,5 @@ const PersonalCard = ({ user }: PersonalCardProps) => {
     <Card>
       <CardContent key={user.id}>{user.name}</CardContent>
     </Card>
-  );
-};
+  )
+}

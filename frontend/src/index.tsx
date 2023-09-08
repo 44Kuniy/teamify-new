@@ -1,20 +1,20 @@
-import { App } from "./App";
+import React from 'react'
 
-import { createRoot } from "react-dom/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { CssBaseline } from '@mui/material'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { App } from './App'
 
 const client = new ApolloClient({
-  uri: "http://localhost:4492/api/graphql",
+  uri: 'http://localhost:4492/api/graphql',
   cache: new InMemoryCache(),
-});
+})
 
-const container = document.getElementById("root") as Element;
+const container = document.getElementById('root') as Element
 
-const root = createRoot(container);
+const root = createRoot(container)
 root.render(
   // react-beautiful-dnd does not work on StrictMode
   // https://github.com/atlassian/react-beautiful-dnd/issues/2407
@@ -27,4 +27,4 @@ root.render(
     </CssBaseline>
   </BrowserRouter>
   // </StrictMode>
-);
+)
