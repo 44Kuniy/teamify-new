@@ -1,6 +1,7 @@
+import { Box } from '@mui/material'
 import { Draggable, DraggingStyle, Droppable, NotDraggingStyle } from 'react-beautiful-dnd'
 
-import { User } from '@/pages/TestPage'
+import { User } from '@/pages/TeamSplitPage'
 
 import { PersonalCard } from '../user-card/UserCard'
 
@@ -18,8 +19,39 @@ const getItemStyle = (
 interface ColumnWidgetProps<T> {
   values: T[]
   droppableId: string
+  columnName: string
 }
-export function ColumnWidget<T>({ values, droppableId }: ColumnWidgetProps<T>) {
+export function ColumnWidget<T>({ values, droppableId, columnName }: ColumnWidgetProps<T>) {
+  const HEADER_HEIGHT = 42
+  const CONTENT_HEIGHT = 36
+  return (
+    <Box>
+      <ColumnHeader columnName={columnName} height={HEADER_HEIGHT} />
+      <DroppableArea values={values} droppableId={droppableId} />
+    </Box>
+  )
+}
+
+interface ColumnHeaderProps {
+  columnName: string
+  height: number
+}
+
+function ColumnHeader({ columnName, height }: ColumnHeaderProps) {
+  const columnHeight = `${height}px`
+  return (
+    <Box
+      sx={{ height: columnHeight, width: '100%', textAlign: 'center', lineHeight: columnHeight }}
+    >
+      {columnName}
+    </Box>
+  )
+}
+interface DroppableAreaProps<T> {
+  droppableId: string
+  values: T[]
+}
+export function DroppableArea<T>({ droppableId, values }: DroppableAreaProps<T>) {
   return (
     <Droppable droppableId={droppableId}>
       {(provided) => (

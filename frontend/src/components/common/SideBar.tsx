@@ -10,6 +10,7 @@ import {
   ListItemText,
   Toolbar,
 } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 interface SidebarContent {
   icon: JSX.Element
@@ -20,7 +21,7 @@ const sidebarContents: SidebarContent[] = [
   {
     icon: <Inbox />,
     text: 'チーム分け',
-    to: '/grid',
+    to: '/room',
   },
   {
     icon: <Inbox />,
@@ -42,8 +43,10 @@ export const BasicSidebar = ({ width }: BasicSidebarProps) => {
       ModalProps={{
         keepMounted: true,
       }}
+      PaperProps={{
+        sx: { width },
+      }}
       sx={{
-        width,
         flexShrink: 0,
       }}
     >
@@ -51,12 +54,14 @@ export const BasicSidebar = ({ width }: BasicSidebarProps) => {
       <Box sx={{ overflow: 'auto' }}>
         <List>
           {sidebarContents.map((content) => (
-            <ListItem key={content.to} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{content.icon}</ListItemIcon>
-                <ListItemText primary={content.text} />
-              </ListItemButton>
-            </ListItem>
+            <Link to={content.to} style={{ textDecoration: 'none', color: 'black' }}>
+              <ListItem key={content.to} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>{content.icon}</ListItemIcon>
+                  <ListItemText primary={content.text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />

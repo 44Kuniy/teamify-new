@@ -5,7 +5,7 @@ import BasicAppbar from '../common/AppBar'
 import { BasicSidebar } from '../common/SideBar'
 
 const APP_BAR_HEIGHT = 64
-const DRAWER_WIDTH = 170
+const DRAWER_WIDTH = 210
 
 export const BaseLayout = () => {
   return (

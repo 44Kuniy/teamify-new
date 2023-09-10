@@ -20,13 +20,7 @@ import {
 import { RouteObject, useRoutes } from 'react-router-dom'
 
 import { BaseLayout } from './components/layout/BasicLayout'
-import { TestPage } from './pages/TestPage'
-
-const TEST = gql`
-  query Test {
-    howdy
-  }
-`
+import { TeamSplitPage } from './pages/TeamSplitPage'
 
 const GET_CHANNELS = gql`
   query Channels {
@@ -39,7 +33,7 @@ const GET_CHANNELS = gql`
 export const App: FC = () => {
   const content = useRoutes(routes)
   const { loading, error, data } = useQuery(GET_CHANNELS)
-  console.log('loading, error, data ❓: {:#?}', loading, error, data)
+  // console.log('loading, error, data ❓: {:#?}', loading, error, data)
 
   return <React.Fragment>{content}</React.Fragment>
 }
@@ -73,34 +67,20 @@ const list = () => (
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <div>aa</div>,
+    element: <BaseLayout />,
   },
   {
-    path: '/test',
+    path: '/room',
     element: <BaseLayout />,
     children: [
       {
         index: true,
-        element: <div></div>,
+        element: <TeamSplitPage />,
       },
-      {
-        path: '2',
-        element: <div>taaaa</div>,
-      },
-    ],
-  },
-  {
-    path: '/test2',
-    element: <BaseLayout />,
-    children: [
-      {
-        index: true,
-        element: <TestPage />,
-      },
-      {
-        path: '2',
-        element: <div>taaaa</div>,
-      },
+      // {
+      //   path: '2',
+      //   element: <div>taaaa</div>,
+      // },
     ],
   },
 ]
