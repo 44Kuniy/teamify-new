@@ -3,7 +3,7 @@ import { Draggable, DraggingStyle, Droppable, NotDraggingStyle } from 'react-bea
 
 import { User } from '@/pages/TeamSplitPage'
 
-import { PersonalCard } from '../user-card/UserCard'
+import { UserCard } from '../user-card/UserCard'
 
 const getItemStyle = (
   isDragging: boolean,
@@ -67,7 +67,7 @@ export function DroppableArea<T>({ droppableId, values }: DroppableAreaProps<T>)
                     {...provided.dragHandleProps}
                     style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                   >
-                    <PersonalCard user={user} />
+                    <UserCard user={user} />
                   </div>
                 )}
               </Draggable>

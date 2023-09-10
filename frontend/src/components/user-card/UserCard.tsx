@@ -1,11 +1,12 @@
-import { Card, CardContent } from '@mui/material'
+import { useCallback, useEffect } from 'react'
 
+import { Card, CardContent } from '@mui/material'
 interface TestDndProps {
   user: User
 }
 
 export const TestDnd = ({ user }: TestDndProps) => {
-  return <PersonalCard user={user}></PersonalCard>
+  return <UserCard user={user}></UserCard>
 }
 
 interface User {
@@ -13,13 +14,34 @@ interface User {
   name: string
 }
 
-interface PersonalCardProps {
+interface UserCardProps {
   user: User
 }
 
-export const PersonalCard = ({ user }: PersonalCardProps) => {
+export const UserCard = ({ user }: UserCardProps) => {
+  const handleClick = useCallback((e: MouseEvent) => {
+    e.preventDefault()
+    console.log('Left click')
+  }, [])
+
+  const handleContextMenu = useCallback((e: MouseEvent) => {
+    e.preventDefault()
+    console.log('Right click')
+  }, [])
+
+  useEffect(() => {
+    const mySelf = document.getElementById(`user-card-${user.id}`)
+    if (!mySelf) throw new Error('invalid user id')
+    mySelf.addEventListener('click', handleClick)
+    mySelf.addEventListener('contextmenu', handleContextMenu)
+    return () => {
+      mySelf.removeEventListener('click', handleClick)
+      mySelf.removeEventListener('contextmenu', handleContextMenu)
+    }
+  }, [user.id])
+
   return (
-    <Card sx={{ borderRadius: '12px', border: '1px solid cadetblue' }}>
+    <Card id={`user-card-${user.id}`} sx={{ borderRadius: '12px', border: '1px solid cadetblue' }}>
       <CardContent key={user.id}>{user.name}</CardContent>
     </Card>
   )

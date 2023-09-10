@@ -16,7 +16,7 @@ export function KanbanBoard<T>({ data }: KanbanBoardProps<T>) {
       {Object.keys(data).map((key) => {
         const values = data[key]
         return (
-          <Grid item xs={3} key={key} spacing={2} sx={{ mx: 2 }}>
+          <Grid item xs={6} key={key} spacing={0} sx={{ px: 1 }}>
             <ColumnWidget droppableId={key} values={values.data} columnName={values.name} />
           </Grid>
         )

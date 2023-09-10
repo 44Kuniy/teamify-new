@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-import { Box } from '@mui/material'
+import { Grid } from '@mui/material'
 import { pick } from 'lodash'
 import { DragDropContext, DraggableLocation, DropResult } from 'react-beautiful-dnd'
 
-import { DroppableArea } from '@/components/dnd/ColumnWidget'
+import { ColumnWidget } from '@/components/dnd/ColumnWidget'
 import { KanbanBoard, TeamColumn } from '@/components/dnd/KanbanBoard'
 
 const BENCH_AREA_DROPPABLE_ID = 'participantArea'
@@ -113,10 +113,14 @@ export const TeamSplitPage = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Box>
-        <KanbanBoard data={players} />
-        <ParticipantBenchArea data={participantAreaPlayers} />
-      </Box>
+      <Grid container>
+        <Grid item xs={8}>
+          <KanbanBoard data={players} />
+        </Grid>
+        <Grid item xs={3}>
+          <ParticipantBenchArea data={participantAreaPlayers} />
+        </Grid>
+      </Grid>
     </DragDropContext>
   )
 }
@@ -125,7 +129,7 @@ interface ParticipantBenchAreaProps<T> {
   data: T[]
 }
 export function ParticipantBenchArea<T>({ data }: ParticipantBenchAreaProps<T>) {
-  return <DroppableArea droppableId={BENCH_AREA_DROPPABLE_ID} values={data} />
+  return <ColumnWidget droppableId={BENCH_AREA_DROPPABLE_ID} values={data} columnName="ベンチ" />
 }
 
 function useInitPlayers(data: DndData) {
