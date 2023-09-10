@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Grid } from '@mui/material'
 import { pick } from 'lodash'
@@ -12,6 +12,12 @@ const BENCH_AREA_DROPPABLE_ID = 'participantArea'
 export interface User {
   id: string
   name: string
+}
+function newUser(props?: Partial<User>): User {
+  return {
+    id: props?.id ?? (Math.random() * 1000).toString(),
+    name: props?.name ?? '',
+  }
 }
 
 export type DndData = { [key: string]: TeamColumn<User> }
@@ -75,6 +81,15 @@ export const TeamSplitPage = () => {
   const [valueMaps, setValuesMap] = useState<DndData>(defaultValuesMap)
   const { players, participantAreaPlayers } = useInitPlayers(valueMaps)
 
+  const onAddNewMember = useCallback(
+    (droppableId: string) => () => {
+      const valuesMapCopy = Object.assign({}, valueMaps)
+      valuesMapCopy[droppableId].data.push(newUser())
+      setValuesMap(valuesMapCopy)
+    },
+    [valueMaps]
+  )
+
   function onDragEnd(result: DropResult) {
     const { source, destination } = result
     const valuesMapCopy = Object.assign({}, valueMaps)
@@ -115,10 +130,13 @@ export const TeamSplitPage = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Grid container>
         <Grid item xs={8}>
-          <KanbanBoard data={players} />
+          <KanbanBoard data={players} onAddNewMember={onAddNewMember} />
         </Grid>
         <Grid item xs={3}>
-          <ParticipantBenchArea data={participantAreaPlayers} />
+          <ParticipantBenchArea
+            data={participantAreaPlayers}
+            onAddNewMember={onAddNewMember(BENCH_AREA_DROPPABLE_ID)}
+          />
         </Grid>
       </Grid>
     </DragDropContext>
@@ -127,9 +145,17 @@ export const TeamSplitPage = () => {
 
 interface ParticipantBenchAreaProps<T> {
   data: T[]
+  onAddNewMember: () => void
 }
-export function ParticipantBenchArea<T>({ data }: ParticipantBenchAreaProps<T>) {
-  return <ColumnWidget droppableId={BENCH_AREA_DROPPABLE_ID} values={data} columnName="ベンチ" />
+export function ParticipantBenchArea<T>({ data, onAddNewMember }: ParticipantBenchAreaProps<T>) {
+  return (
+    <ColumnWidget
+      droppableId={BENCH_AREA_DROPPABLE_ID}
+      values={data}
+      columnName="ベンチ"
+      onAddNewMember={onAddNewMember}
+    />
+  )
 }
 
 function useInitPlayers(data: DndData) {

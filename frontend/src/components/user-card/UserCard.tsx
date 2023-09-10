@@ -1,13 +1,6 @@
 import { useCallback, useEffect } from 'react'
 
 import { Card, CardContent } from '@mui/material'
-interface TestDndProps {
-  user: User
-}
-
-export const TestDnd = ({ user }: TestDndProps) => {
-  return <UserCard user={user}></UserCard>
-}
 
 interface User {
   id: string

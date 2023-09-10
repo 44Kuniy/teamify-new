@@ -3,6 +3,7 @@ import { Draggable, DraggingStyle, Droppable, NotDraggingStyle } from 'react-bea
 
 import { User } from '@/pages/TeamSplitPage'
 
+import { AddNewMemberCard } from '../user-card/AddNewMemberCard'
 import { UserCard } from '../user-card/UserCard'
 
 const getItemStyle = (
@@ -20,14 +21,22 @@ interface ColumnWidgetProps<T> {
   values: T[]
   droppableId: string
   columnName: string
+  onAddNewMember: () => void
 }
-export function ColumnWidget<T>({ values, droppableId, columnName }: ColumnWidgetProps<T>) {
+export function ColumnWidget<T>({
+  values,
+  droppableId,
+  columnName,
+  onAddNewMember,
+}: ColumnWidgetProps<T>) {
   const HEADER_HEIGHT = 42
   const CONTENT_HEIGHT = 36
+
   return (
     <Box>
       <ColumnHeader columnName={columnName} height={HEADER_HEIGHT} />
       <DroppableArea values={values} droppableId={droppableId} />
+      <AddNewMemberCard onClick={onAddNewMember} />
     </Box>
   )
 }
@@ -73,7 +82,6 @@ export function DroppableArea<T>({ droppableId, values }: DroppableAreaProps<T>)
               </Draggable>
             )
           })}
-
           {provided.placeholder}
         </div>
       )}
