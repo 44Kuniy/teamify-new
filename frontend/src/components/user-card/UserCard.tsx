@@ -17,9 +17,9 @@ interface PersonalCardProps {
   user: User
 }
 
-const PersonalCard = ({ user }: PersonalCardProps) => {
+export const PersonalCard = ({ user }: PersonalCardProps) => {
   return (
-    <Card>
+    <Card sx={{ borderRadius: '12px', border: '1px solid cadetblue' }}>
       <CardContent key={user.id}>{user.name}</CardContent>
     </Card>
   )

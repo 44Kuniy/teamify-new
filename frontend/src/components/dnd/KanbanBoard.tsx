@@ -1,23 +1,9 @@
 import { useState } from 'react'
 
 import { Grid } from '@mui/material'
-import {
-  DragDropContext,
-  Draggable,
-  DraggableLocation,
-  DraggingStyle,
-  DropResult,
-  Droppable,
-  NotDraggingStyle,
-  ResponderProvided,
-} from 'react-beautiful-dnd'
+import { DragDropContext, DraggableLocation, DropResult } from 'react-beautiful-dnd'
 
-import { TestDnd } from '@/components/dnd/TestDnd'
-
-interface User {
-  id: string
-  name: string
-}
+import { ColumnWidget } from './ColumnWidget'
 
 function reorder<T>(list: T[], startIndex: number, endIndex: number) {
   const result = Array.from(list)
@@ -25,18 +11,6 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
   result.splice(endIndex, 0, removed)
   return result
 }
-
-const grid = 8
-const getItemStyle = (
-  isDragging: boolean,
-  draggableStyle: DraggingStyle | NotDraggingStyle | undefined
-) => ({
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  ...draggableStyle,
-})
 
 function move<T>(
   source: T[],
@@ -63,8 +37,7 @@ interface KanbanBoardProps<T> {
 export function KanbanBoard<T>({ defaultValues }: KanbanBoardProps<T>) {
   const [valueMaps, setValuesMap] = useState<{ [key: string]: T[] }>(defaultValues)
 
-  // FIXME: LOGIC IS WRONG
-  function onDragEnd(result: DropResult, provided: ResponderProvided) {
+  function onDragEnd(result: DropResult) {
     const { source, destination } = result
     const valuesMapCopy = Object.assign({}, valueMaps)
 
@@ -105,35 +78,8 @@ export function KanbanBoard<T>({ defaultValues }: KanbanBoardProps<T>) {
         {Object.keys(valueMaps).map((key) => {
           const values = valueMaps[key]
           return (
-            <Grid item xs={3} key={key}>
-              <Droppable droppableId={key}>
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {values.map((v, index) => {
-                      const user = v as User
-                      return (
-                        <Draggable key={user.id} draggableId={user.id} index={index}>
-                          {(provided, snapshot) => (
-                            <div
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={getItemStyle(
-                                snapshot.isDragging,
-                                provided.draggableProps.style
-                              )}
-                            >
-                              <TestDnd user={user} />
-                            </div>
-                          )}
-                        </Draggable>
-                      )
-                    })}
-
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
+            <Grid item xs={3} key={key} spacing={2} sx={{ mx: 2 }}>
+              <ColumnWidget droppableId={key} values={values} />
             </Grid>
           )
         })}

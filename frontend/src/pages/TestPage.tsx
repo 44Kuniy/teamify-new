@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 
 import { KanbanBoard } from '@/components/dnd/KanbanBoard'
-interface User {
+export interface User {
   id: string
   name: string
 }
@@ -11,16 +11,15 @@ const defaultValuesMap: { [key: string]: User[] } = {
     { id: '11', name: 'user 11' },
     { id: '12', name: 'user 12' },
     { id: '13', name: 'user 13' },
+    { id: '14', name: 'user 14' },
+    { id: '15', name: 'user 15' },
   ],
   droppable2: [
     { id: '21', name: 'user 21' },
     { id: '22', name: 'user 22' },
     { id: '23', name: 'user 23' },
-  ],
-  droppable3: [
-    { id: '31', name: 'user 31' },
-    { id: '32', name: 'user 32' },
-    { id: '33', name: 'user 33' },
+    { id: '24', name: 'user 24' },
+    { id: '25', name: 'user 25' },
   ],
 }
 
