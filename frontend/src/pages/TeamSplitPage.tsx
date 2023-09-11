@@ -25,7 +25,7 @@ export type DndData = { [key: string]: TeamColumn<User> }
 const defaultValuesMap: DndData = {
   droppable1: {
     data: [
-      { id: '11', name: 'user 11' },
+      { id: '11', name: 'user 11 very long name' },
       { id: '12', name: 'user 12' },
       { id: '13', name: 'user 13' },
       { id: '14', name: 'user 14' },
