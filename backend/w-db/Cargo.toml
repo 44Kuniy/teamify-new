@@ -1,0 +1,10 @@
+[package]
+name = "w-db"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+w-models = { path = "../w-models" }
+diesel = { version = "2.1.0", features = ["postgres", "extras"] }
+itertools = "*"
+r2d2 = "*"

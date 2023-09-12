@@ -1,0 +1,5 @@
+[workspace]
+
+members = ["w-config", "w-db", "w-models", "w-server", "w-usecase"]
+
+resolver = "2"
