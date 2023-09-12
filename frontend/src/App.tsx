@@ -21,6 +21,7 @@ import { RouteObject, useRoutes } from 'react-router-dom'
 
 import { BaseLayout } from './components/layout/BasicLayout'
 import { TeamSplitPage } from './pages/TeamSplitPage'
+import { WebSocketTestPage } from './pages/WebSocketTest'
 
 const GET_CHANNELS = gql`
   query Channels {
@@ -68,6 +69,12 @@ const routes: RouteObject[] = [
   {
     path: '/',
     element: <BaseLayout />,
+    children: [
+      {
+        index: true,
+        element: <WebSocketTestPage />,
+      },
+    ],
   },
   {
     path: '/room',
